@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const Car = require("../models/car");
 
 //Get All Cars
-router.get("/", (req, res) => {
-  res.send("Hello World");
+router.get("/", async (req, res) => {
+  try {
+    const cars = await Car.find();
+    res.json(cars);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
-//Get One
 
 module.exports = router;
